@@ -38,7 +38,7 @@
       request(payload) {
         const document = db.documents[payload.document];
         const data = document.data.find(item => {
-          if (item[payload.field.value] === payload.field.equal) {
+          if (item[payload.field.name] === payload.field.equal) {
             
             return true;
           }
@@ -52,7 +52,7 @@
       document: 'users',
       type: 'get',
       field: {
-        value: 'age',
+        name: 'age',
         equal: 20
       }
     });
