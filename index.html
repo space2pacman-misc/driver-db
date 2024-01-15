@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const db = {
+      documents: {
+        users: {
+          fields: [
+            {
+              name: {
+                type: 'string'
+              },
+              age: {
+                type: 'number'
+              }
+            }
+          ],
+          data: [
+            {
+              name: 'Alex',
+              age: 20
+            },
+            {
+              name: 'Bob',
+              age: 30
+            },
+          ]
+        }
+      }
+    }
+
+    const driver = {
+      request(payload) {
+        const document = db.documents[payload.document];
+        const data = document.data.find(item => {
+          if (item[payload.field.value] === payload.field.equal) {
+            
+            return true;
+          }
+        });
+
+        return data;
+      }
+    }
+
+    const data = driver.request({
+      document: 'users',
+      type: 'get',
+      field: {
+        value: 'age',
+        equal: 20
+      }
+    });
+
+    console.log(data);
+  </script>
+</body>
+</html>
